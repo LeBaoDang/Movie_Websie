@@ -47,12 +47,17 @@ class VideosController {
     .catch(next);
   }
 
-  //[DELETE] /videos/:id
   delete(req, res, next){
-    Video.deleteOne({_id: req.params.id})
+    Video.delete({ _id: req.params.id })
     .then(() => res.redirect('back'))
     .catch(next);
   }
 
+  //[PATCH] /videos/:id/restore
+  restore(req, res, next) {
+    Video.restore({ _id: req.params.id })
+    .then(() => res.redirect('back'))
+    .catch(next);
+  }
 }
 module.exports = new VideosController;

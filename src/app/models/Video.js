@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const slug = require('mongoose-slug-generator');
-
-mongoose.plugin(slug);
+const mongooseDelete = require('mongoose-delete');
 
 const Schema = mongoose.Schema;
 
@@ -15,10 +14,14 @@ const VideoSchema = new Schema({
     slug: { type: String, slug: 'name'},
     // unique tồn di nhất
     // ở vesion mới nhất thì không tồn tại
-    createAt: { type: Date, default: Date.now },
-    updateAt: { type: Date, default: Date.now }
 }, {
     timestamps: true,
 });
+
+// add plugin
+mongoose.plugin(slug);
+VideoSchema.plugin(mongooseDelete, { 
+    deletedAt: true,
+    overrideMethods: 'all' });
  
 module.exports = mongoose.model('Video',VideoSchema);

@@ -1,9 +1,9 @@
 <div class="mt-4 mb-4">
-   
-   <div>
-    <h3>Video của tôi</h3>
-    <a href="/videos/mevideos/trash/videos"> Thùng rác </a>
-   </div>
+
+    <div>
+        <a href="/videos/mevideos/stored/videos"> Danh sách videos </a>
+        <h3>Video đã xóa</h3>
+    </div>
 
 
     <table class="table table-light mt-4">
@@ -23,23 +23,23 @@
                 <td>{{this.name}}</td>
                 <td>{{this.createAt}}</td>
                 <td>
-                    <button class="btn btn-primary"><a href="/videos/{{this._id}}/edit">
-                            Sửa
-                        </a>
+                    <button class="btn btn-primary btn-restore"><a class="btn-restore" data-id="{{this._id}}">
+                            Khôi phục
+                        </a> </button>
                 </td>
                 <td>
                     </button>
                     <button class="btn btn-primary"><a href="" data-toggle="modal" data-target="#delete-video-model"
                             data-id="{{this._id}}">
-                            Xóa
+                            Xóa vĩnh viễn
                         </a></button>
                 </td>
             </tr>
             {{else}}
             <tr>
                 <td colspan="5" class="text-center">
-                    Bạn chưa đăng video nào. 
-                    <a href="/videos/create">Tải lên video ?</a>
+                    Thùng rác trống.
+                    <a href="/videos/mevideos/stored/videos">Danh sách video</a>
                 </td>
             </tr>
             {{/each}}
@@ -61,23 +61,23 @@
                 Bạn có chắc muốn xóa video này?
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-video" type="button" class="btn btn-danger">Xác nhận xóa</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button id="btn-delete-video" type="button" class="btn btn-danger">Khôi phục</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Xóa vĩnh viễn</button>
             </div>
         </div>
     </div>
 </div>
-
-<form method="POST" name="delete-video-form">
-
-</form>
+<form method="POST" name="delete-video-form"></form>
+<form method="POST" name="restore-course-form"></form>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
 
         var videoId;
         var btnDeleteVideo = document.getElementById('btn-delete-video');
         var deleteForm = document.forms['delete-video-form'];
+        var restoreForm = document.forms['restore-course-form'];
+        var restoreBtn = $('.btn-restore');
 
         // when dialog confirm clicked
         $('#delete-video-model').on('show.bs.modal', function (event) {
@@ -90,5 +90,13 @@
             deleteForm.action = '/videos/' + videoId + '?_method=DELETE';
             deleteForm.submit();
         }
+
+        // Restore btn clicked
+        restoreBtn.click(function (e) {
+            var videoId = $(this).data('id');
+            restoreForm.action = '/videos/' + videoId + '/restore?_method=PATCH';
+            restoreForm.submit(); 
+        });
+
     })
 </script>

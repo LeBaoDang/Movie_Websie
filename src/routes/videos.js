@@ -8,8 +8,9 @@ const videosController = require('../app/controllers/VideosController');
 router.get('/create', videosController.create);
 router.post('/store', videosController.store);
 router.get('/:id/edit', videosController.edit);
-router.put('/:id', videosController.update);
 router.delete('/:id', videosController.delete);
+router.put('/:id', videosController.update);
+router.patch('/:id/restore', videosController.restore);
 router.get('/:slug', videosController.show);
 
 module.exports = router;
