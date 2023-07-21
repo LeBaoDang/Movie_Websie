@@ -23,7 +23,7 @@
                 <td>{{this.name}}</td>
                 <td>{{this.createAt}}</td>
                 <td>
-                    <button class="btn btn-primary btn-restore"><a class="btn-restore" data-id="{{this._id}}">
+                    <button class="btn btn-primary"><a class="btn-restore" data-id="{{this._id}}">
                             Khôi phục
                         </a> </button>
                 </td>
@@ -93,10 +93,10 @@
 
         // Restore btn clicked
         restoreBtn.click(function (e) {
+            e.preventDefault();
             var videoId = $(this).data('id');
             restoreForm.action = '/videos/' + videoId + '/restore?_method=PATCH';
             restoreForm.submit(); 
         });
-
     })
 </script>
