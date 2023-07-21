@@ -1,0 +1,64 @@
+<div class="mt-4 mb-4">
+    <div class="row">
+
+        {{#each videos}}
+
+        <div class="col-sm-4 col-lg-lg-">
+            <div class="card card-video-item">
+                <a href="/videos/{{this.slug}}">
+                    <img class="card-img-top" src="{{this.image}}" alt="Card image cap"></a>
+                <div class="card-body">
+                    <a href="/videos/{{this.slug}}">
+                        <h5 class="card-title">{{this.name}}</h5>
+                    </a>
+                    <p class="card-text">{{this.discription}}</p>
+                    <a href="{{this.link}}" class="btn btn-primary">Xem ngay</a>
+                </div>
+            </div>
+        </div>
+
+        {{/each}}
+
+    </div>
+</div>
+<!--
+<div class="pagination justify-content-center">
+    <ul class="pagination">
+        {{#if currentPage}}
+        {{#if totalPages}}
+        {{#unless isFirstPage currentPage}}
+        <li class="page-item">
+            <a class="page-link" href="?page=1">First</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{prevPage}}">Previous</a>
+        </li>
+        {{/unless}}
+        {{#if hasPrevPage}}
+        <li class="page-item">
+            <a class="page-link" href="?page={{prevPage}}">{{prevPage}}</a>
+        </li>
+        {{/if}}
+
+        <li class="page-item active">
+            <span class="page-link">{{currentPage}}</span>
+        </li>
+
+        {{#if hasNextPage}}
+        <li class="page-item">
+            <a class="page-link" href="?page={{nextPage}}">{{nextPage}}</a>
+        </li>
+        {{/if}}
+        {{#unless isLastPage currentPage totalPages}}
+        <li class="page-item">
+            <a class="page-link" href="?page={{nextPage}}">Next</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{totalPages}}">Last</a>
+        </li>
+        {{/unless}}
+        {{/if}}
+        {{/if}}
+    </ul>
+</div>
+-->

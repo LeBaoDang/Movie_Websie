@@ -1,0 +1,27 @@
+@import 'variables';
+
+h1 {
+    color: $red-color;
+}
+
+#id1 {
+    color: #F0F0F0;
+}
+
+.card-video-item {
+    margin-top: 16px;
+}
+
+#btnMeVideos a{
+    color: #F0F0F0;
+}
+
+.footer{ background-color: #343a40;padding: 20px;}
+        .footer ul{ list-style: none;}
+        .li-title{ font-size: 23px;color: #F0F0F0;}
+        .li-title:hover{ text-decoration: none;color: #F0F0F0;}
+        .li-text{ font-size: 14px;font-family: serif;font-weight: 600;color: #F0F0F0;border-bottom: 1px solid #F0F0F0;}
+        .li-text:hover{ color: #F0F0F0;text-decoration: none;}
+        .caixa-img-footer{ height: 150px;width: 100%;background-color: #fff;border: 2px solid #fff;box-shadow: 0 0 10px rgba(36,36,36,.5)}
+        .reserved-bot{ padding-top: 10px;padding-bottom: .1px;background-color: #F0F0F0;margin-top: 20px;margin-left: -20px;margin-right: -20px;}
+        .reserved-top{ padding-top: 10px;padding-bottom: .1px;background-color: #F0F0F0;margin-bottom: 20px;;margin-left: -20px;margin-right: -20px;}

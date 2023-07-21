@@ -1,0 +1,19 @@
+<div class="mt-4 mb-4">
+    <h3>Thêm video</h3>
+    <form method="POST" action="/videos/store">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name"> 
+        </div>
+        <div class="form-group">
+            <label for="videoId">VideoId</label>
+            <input type="text" class="form-control" id="videoId" name="videoId"> 
+        </div>
+        <div class="form-group">
+            <label for="discription">Discription</label>
+            <textarea class="form-control" id="discription" name="discription" rows="8" >
+            </textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Thêm video</button>
+    </form>
+</div>
