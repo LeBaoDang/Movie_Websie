@@ -54,13 +54,28 @@
         </div>
     </div>
 </div>
+
+<form method="POST" name="delete-video-form" >
+
+</form>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function {
-        $('#delete-video-model').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            var id = button.data('id')
-        });
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var videoId;
         var btnDeleteVideo = document.getElementById('btn-delete-video');
-        console.log(btnDeleteVideo);
+        var deleteForm = document.forms['delete-video-form'];
+
+        // when dialog confirm clicked
+        $('#delete-video-model').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            videoId = button.data('id');
+        });
+
+        // when delete video btn click
+        btnDeleteVideo.onclick = function () {
+            deleteForm.action = '/videos/' + videoId + '?_method=DELETE';
+            deleteForm.submit();
+        }
     })
 </script>
