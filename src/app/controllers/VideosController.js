@@ -21,9 +21,8 @@ class VideosController {
 
   // [POST] /videos/store
   store(req, res, next) {
-    const formData = req.body;
-    formData.image = `https://i.ytimg.com/vi/${req.body.videoId}/hqdefault.jpg`;
-    const video = new Video(formData);
+    req.body.image = `https://i.ytimg.com/vi/${req.body.videoId}/hqdefault.jpg`;
+    const video = new Video(req.body);
     video.save()
       .then(() => res.redirect('/'))
       .catch(error => {
@@ -47,11 +46,21 @@ class VideosController {
     .catch(next);
   }
 
+
+  //[DELETE] /videos/:id
   delete(req, res, next){
     Video.delete({ _id: req.params.id })
     .then(() => res.redirect('back'))
     .catch(next);
   }
+
+  //[DELETE] /video/:id/force
+  forceDelete(req, res, next){
+    Video.deleteOne({ _id: req.params.id })
+    .then(() => res.redirect('back'))
+    .catch(next);
+  }
+
 
   //[PATCH] /videos/:id/restore
   restore(req, res, next) {

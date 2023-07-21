@@ -23,7 +23,7 @@
                 <td>{{this.name}}</td>
                 <td>{{this.createAt}}</td>
                 <td>
-                    <button class="btn btn-primary"><a class="btn-restore" data-id="{{this._id}}">
+                    <button class="btn btn-primary"><a href="" class="btn-restore" data-id="{{this._id}}">
                             Khôi phục
                         </a> </button>
                 </td>
@@ -61,8 +61,8 @@
                 Bạn có chắc muốn xóa video này?
             </div>
             <div class="modal-footer">
-                <button id="btn-delete-video" type="button" class="btn btn-danger">Khôi phục</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Xóa vĩnh viễn</button>
+                <button id="btn-delete-video" type="button" class="btn btn-danger">Xóa vĩnh viễn</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
 
         // when delete video btn click
         btnDeleteVideo.onclick = function () {
-            deleteForm.action = '/videos/' + videoId + '?_method=DELETE';
+            deleteForm.action = '/videos/' + videoId + '/force?_method=DELETE';
             deleteForm.submit();
         }
 

@@ -23,5 +23,5 @@ mongoose.plugin(slug);
 VideoSchema.plugin(mongooseDelete, { 
     deletedAt: true,
     overrideMethods: 'all' });
- 
+
 module.exports = mongoose.model('Video',VideoSchema);
