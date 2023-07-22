@@ -10,7 +10,6 @@ class VideosController {
         res.render('videos/show', { video: mongooseToObject(video) });
       })
       .catch(next);
-
     // res.send('slug' + req.params.slug)
   }
 
@@ -46,7 +45,6 @@ class VideosController {
     .catch(next);
   }
 
-
   //[DELETE] /videos/:id
   delete(req, res, next){
     Video.delete({ _id: req.params.id })
@@ -54,19 +52,40 @@ class VideosController {
     .catch(next);
   }
 
-  //[DELETE] /video/:id/force
+  //[DELETE] /videos/:id/force
   forceDelete(req, res, next){
     Video.deleteOne({ _id: req.params.id })
     .then(() => res.redirect('back'))
     .catch(next);
   }
 
-
-  //[PATCH] /videos/:id/restore
+  // [PATCH] /videos/:id/restore
+  // restore(req, res, next) {
+  //   Video.restore({_id: req.params.id})
+  //   .then(() => res.redirect('back'))
+  //   .catch(next);
+  // }
   restore(req, res, next) {
-    Video.restore({ _id: req.params.id })
-    .then(() => res.redirect('back'))
-    .catch(next);
+    const videoId = req.params.id;
+    Video.findOneAndUpdate(
+      { _id: videoId, deleted: true }, // Điều kiện tìm tài liệu có _id và trường deleted là true
+      { $set: { deleted: false } },   // Cập nhật trường deleted thành false
+      { new: true }
+    )
+      .then((updatedVideo) => {
+        if (!updatedVideo) {
+          return res.status(404).json({ message: 'Video not found or not deleted' });
+        }
+  
+        return res.status(200).json(updatedVideo);
+      })
+      .catch((error) => {
+        console.error('Error restoring video:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+      });
   }
+  
+
 }
+
 module.exports = new VideosController;

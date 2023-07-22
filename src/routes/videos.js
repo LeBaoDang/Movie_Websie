@@ -11,7 +11,7 @@ router.get('/:id/edit', videosController.edit);
 router.delete('/:id', videosController.delete);
 router.delete('/:id/force', videosController.forceDelete);
 router.put('/:id', videosController.update);
-router.patch('/:id/restore', videosController.restore);
+router.patch('/:id/restore', videosController.restore); 
 router.get('/:slug', videosController.show);
 
 module.exports = router;

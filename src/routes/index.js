@@ -10,7 +10,7 @@ function route(app) {
 
     app.use('/videos/mevideos', meVideosRouter)
 
-    app.use("/videos", videosRouter);
+    app.use("/videos", videosRouter); 
 
     app.use("/", siteRouter);
 

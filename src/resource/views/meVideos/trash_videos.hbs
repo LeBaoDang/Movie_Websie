@@ -1,11 +1,8 @@
 <div class="mt-4 mb-4">
-
     <div>
         <a href="/videos/mevideos/stored/videos"> Danh sách videos </a>
         <h3>Video đã xóa</h3>
     </div>
-
-
     <table class="table table-light mt-4">
         <thead>
             <tr>
@@ -21,7 +18,7 @@
             <tr id="btnMeVideos">
                 <th scope="row">{{ sum @index 1 }}</th>
                 <td>{{this.name}}</td>
-                <td>{{this.createAt}}</td>
+                <td>{{this.createdAt}}</td>
                 <td>
                     <button class="btn btn-primary"><a href="" class="btn-restore" data-id="{{this._id}}">
                             Khôi phục
@@ -69,10 +66,8 @@
 </div>
 <form method="POST" name="delete-video-form"></form>
 <form method="POST" name="restore-course-form"></form>
-
 <script>
         document.addEventListener('DOMContentLoaded', function () {
-
         var videoId;
         var btnDeleteVideo = document.getElementById('btn-delete-video');
         var deleteForm = document.forms['delete-video-form'];
@@ -94,7 +89,7 @@
         // Restore btn clicked
         restoreBtn.click(function (e) {
             e.preventDefault();
-            var videoId = $(this).data('id');
+            var videoId = $(this).data('id'); 
             restoreForm.action = '/videos/' + videoId + '/restore?_method=PATCH';
             restoreForm.submit(); 
         });

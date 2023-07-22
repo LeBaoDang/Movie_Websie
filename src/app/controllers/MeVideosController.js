@@ -15,8 +15,9 @@ class MeVideosController{
     //[GET] videos/mevideos/trash/videos
     trashVideos(req, res, next){
         Video.findDeleted({})
-        .then(videos => res.render('meVideos/trash_videos', {
-            videos: mutipleMongooseToObject(videos)
+        .then( (videos) => 
+            res.render('meVideos/trash_videos', {
+            videos: mutipleMongooseToObject(videos),
         }))
         .catch(next);
     }
