@@ -32,31 +32,31 @@ class VideosController {
   //[GET] /videos/:id/edit
   edit(req, res, next) {
     Video.findById(req.params.id)
-    .then(video => res.render('videos/edit', {
-      video: mongooseToObject(video)
-    }))
-    .catch(next);
+      .then(video => res.render('videos/edit', {
+        video: mongooseToObject(video)
+      }))
+      .catch(next);
   }
 
   //[PUT] /videos/:id
-  update(req, res, next) { 
-    Video.updateOne({_id: req.params.id}, req.body)
-    .then(() => res.redirect('mevideos/stored/videos'))
-    .catch(next);
+  update(req, res, next) {
+    Video.updateOne({ _id: req.params.id }, req.body)
+      .then(() => res.redirect('mevideos/stored/videos'))
+      .catch(next);
   }
 
   //[DELETE] /videos/:id
-  delete(req, res, next){
+  delete(req, res, next) {
     Video.delete({ _id: req.params.id })
-    .then(() => res.redirect('back'))
-    .catch(next);
+      .then(() => res.redirect('back'))
+      .catch(next);
   }
 
   //[DELETE] /videos/:id/force
-  forceDelete(req, res, next){
+  forceDelete(req, res, next) {
     Video.deleteOne({ _id: req.params.id })
-    .then(() => res.redirect('back'))
-    .catch(next);
+      .then(() => res.redirect('back'))
+      .catch(next);
   }
 
   // [PATCH] /videos/:id/restore
@@ -66,25 +66,14 @@ class VideosController {
   //   .catch(next);
   // }
   restore(req, res, next) {
-    const videoId = req.params.id;
     Video.findOneAndUpdate(
-      { _id: videoId, deleted: true }, // Điều kiện tìm tài liệu có _id và trường deleted là true
+      { _id: req.params.id, deleted: true }, // Điều kiện tìm tài liệu có _id và trường deleted là true
       { $set: { deleted: false } },   // Cập nhật trường deleted thành false
       { new: true }
-    )
-      .then((updatedVideo) => {
-        if (!updatedVideo) {
-          return res.status(404).json({ message: 'Video not found or not deleted' });
-        }
-  
-        return res.status(200).json(updatedVideo);
-      })
-      .catch((error) => {
-        console.error('Error restoring video:', error);
-        return res.status(500).json({ message: 'Internal server error' });
-      });
+    ).then((updatedVideo) => res.redirect('back'))
+      .catch(next);
   }
-  
+
 
 }
 

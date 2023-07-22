@@ -11,7 +11,7 @@ const VideoSchema = new Schema({
     link: { type: String },
     videoId: { type: String, required: true },
     slug: { type: String, slug: 'name'},
-    deleted: { type: Boolean, default: false },  // sao này nhớ thêm vô unique: true 
+    deleted: { type: Boolean, default: false },  // sao này nhớ thêm vô unique: true
     deletedAt: { type: Date, default: null }, // Thêm trường deletedAt
 }, {
     timestamps: true,
