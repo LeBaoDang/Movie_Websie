@@ -1,7 +1,7 @@
 <div class="mt-4 mb-4">
    <div>
     <h3>Video của tôi</h3>
-    <a href="/videos/mevideos/trash/videos"> Thùng rác </a>
+    <a href="/videos/mevideos/trash/videos"> Thùng rác {{deletedCount}} </a>
    </div>
     <table class="table table-light mt-4">
         <thead>
@@ -28,7 +28,7 @@
                     </button>
                     <button class="btn btn-primary"><a href="" data-toggle="modal" data-target="#delete-video-model"
                             data-id="{{this._id}}">
-                            Xóa
+                            <i class="bi bi-trash"></i> Xóa
                         </a></button>
                 </td>
             </tr>

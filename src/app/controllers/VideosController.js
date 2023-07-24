@@ -60,20 +60,16 @@ class VideosController {
   }
 
   // [PATCH] /videos/:id/restore
-  // restore(req, res, next) {
-  //   Video.restore({_id: req.params.id})
-  //   .then(() => res.redirect('back'))
-  //   .catch(next);
-  // }
   restore(req, res, next) {
-    Video.findOneAndUpdate(
-      { _id: req.params.id, deleted: true }, // Điều kiện tìm tài liệu có _id và trường deleted là true
-      { $set: { deleted: false } },   // Cập nhật trường deleted thành false
-      { new: true }
-    ).then((updatedVideo) => res.redirect('back'))
-      .catch(next);
+    Video.restore({ _id: req.params.id })
+     .then(() => res.redirect('back'))
+     .catch(next);
+    // const videoId = req.params.id;
+    // Video.findByIdAndUpdate({ _id: videoId })
+    //   .then((video) => {
+    //     res.json(video);
+    //   })
   }
-
 
 }
 
