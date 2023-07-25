@@ -1,12 +1,30 @@
-<div class="mt-4 mb-4">
-   <div>
-    <h3>Video của tôi</h3>
-    <a href="/videos/mevideos/trash/videos"> Thùng rác {{deletedCount}} </a>
-   </div>
+<form class="mt-4 mb-4" name="container-form" method="POST" action="/videos/handle-form-actions" >
+    <div>
+        <h3>Video của tôi</h3>
+        <a href="/videos/mevideos/trash/videos"> Thùng rác {{deletedCount}} </a>
+
+        <div class="mt-4 d-flex align-items-center">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+                <label class="form-check-label" for="checkbox-all">
+                    Chọn tất cả
+                </label>
+            </div>
+            <br>
+            <select class="form-control form-control-sm checkbox-select-all-options" name="action" required>
+                <option value="">-- Chọn hành động --</option>
+                <option value="delete">Xóa</option>
+            </select> <br>
+            <button class="btn btn-primary btn-sm btn-check-all-submit disabled">
+                Thực hiện
+            </button>
+        </div>
+
+    </div>
     <table class="table table-light mt-4">
         <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col" colspan="2">#</th>
                 <th scope="col">Tên Video</th>
                 <th scope="col">Thời gian tạo</th>
                 <th></th>
@@ -16,6 +34,11 @@
         <tbody>
             {{# each videos}}
             <tr id="btnMeVideos">
+                <td>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{this._id}}" name="videoIds[]">
+                    </div>
+                </td>
                 <th scope="row">{{ sum @index 1 }}</th>
                 <td>{{this.name}}</td>
                 <td>{{this.createdAt}}</td>
@@ -35,14 +58,14 @@
             {{else}}
             <tr>
                 <td colspan="5" class="text-center">
-                    Bạn chưa đăng video nào. 
+                    Bạn chưa đăng video nào.
                     <a href="/videos/create">Tải lên video ?</a>
                 </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-</div>
+</form>
 <!-- confirm delete -->
 <div class="modal fade" id="delete-video-model" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -73,8 +96,12 @@
     document.addEventListener('DOMContentLoaded', function () {
 
         var videoId;
+        var containerForm = document.forms['container-form'];
         var btnDeleteVideo = document.getElementById('btn-delete-video');
         var deleteForm = document.forms['delete-video-form'];
+        var checkboxAll = $('#checkbox-all');
+        var videoItemCheckbox = $('input[name="videoIds[]"]')
+        var checkAllSubmitBtn = $('.btn-check-all-submit');
 
         // when dialog confirm clicked
         $('#delete-video-model').on('show.bs.modal', function (event) {
@@ -87,5 +114,48 @@
             deleteForm.action = '/videos/' + videoId + '?_method=DELETE';
             deleteForm.submit();
         }
+
+        // checkbox all changed
+        checkboxAll.change(function(){
+            var isCheckedAll = $(this).prop('checked');
+            videoItemCheckbox.prop('checked', isCheckedAll);
+        });
+
+        // Video item checkbox changed
+        videoItemCheckbox.change(function() {
+            var isCheckedAll = videoItemCheckbox.length === $('input[name="videoIds[]"]:checked').length;
+            checkboxAll.prop('checked', isCheckedAll);
+            renderCheckAllSubmitBtn();
+        });
+
+
+        //check all submit button clicked
+        checkAllSubmitBtn.click(function(e){
+            e.preventDefault();
+            var isSubmitTable = !$(this).hasClass('disabled');
+            if(isSubmitTable) {
+                containerForm.submit();
+            }
+        })
+
+        checkAllSubmitBtn.on('submit', function(e){
+            var isSubmitTable = !$(this).hasClass('disabled');
+            if(!isSubmitTable) {
+                e.preventDefault();
+            }
+        });
+
+        // Re-render check all submit button
+        function renderCheckAllSubmitBtn(){
+            var checkedCount = $('input[name="videoIds[]"]:checked').length;
+            if (checkedCount > 0) {
+                checkAllSubmitBtn.removeClass('disabled');
+            } else {
+                checkAllSubmitBtn.addClass('disabled');
+            }
+        }
+
+        console.log(containerForm);
+
     })
 </script>

@@ -8,6 +8,7 @@ const videosController = require('../app/controllers/VideosController');
 router.get('/create', videosController.create);
 router.post('/store', videosController.store);
 router.get('/:id/edit', videosController.edit);
+router.post('/handle-form-actions', videosController.handleFormActions);
 router.delete('/:id', videosController.delete);
 router.delete('/:id/force', videosController.forceDelete);
 router.put('/:id', videosController.update);

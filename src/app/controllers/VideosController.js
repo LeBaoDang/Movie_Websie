@@ -62,13 +62,26 @@ class VideosController {
   // [PATCH] /videos/:id/restore
   restore(req, res, next) {
     Video.restore({ _id: req.params.id })
-     .then(() => res.redirect('back'))
-     .catch(next);
+      .then(() => res.redirect('back'))
+      .catch(next);
     // const videoId = req.params.id;
     // Video.findByIdAndUpdate({ _id: videoId })
     //   .then((video) => {
     //     res.json(video);
     //   })
+  }
+
+  //[POST /videos/handle-form-actions
+  handleFormActions(req, res, next) {
+    switch (req.body.action) {
+      case 'delete':
+        Video.delete({ _id: { $in: req.body.videoIds } })
+          .then(() => res.redirect('back'))
+          .catch(next);
+        break;
+      default:
+        res.json({ message: 'Action in invalid!' });
+    }
   }
 
 }
