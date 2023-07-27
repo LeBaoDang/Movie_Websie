@@ -6,7 +6,17 @@ class MeVideosController {
     //[GET] videos/mevideos/stored/videos
     storedVideos(req, res, next) {
 
-        Promise.all([Video.find({}), Video.countDocumentsDeleted()])
+        // let videoQuery = Video.find({});
+
+        // if(req.query.hasOwnProperty('_sort')){
+        //     const isValidtype = ['asc','desc'].includes(req.query.type);
+        //     videoQuery = videoQuery.sort({
+        //         [req.query.column]: isValidtype ? req.query.type : 'desc',
+        //     });
+        // }
+
+        Promise.all([Video.find({}).sortable(req), 
+                    Video.countDocumentsDeleted()])
             .then(([videos, deletedCount]) =>   
                 res.render('meVideos/stored_videos', {
                 deletedCount,

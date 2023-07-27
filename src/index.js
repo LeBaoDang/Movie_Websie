@@ -2,12 +2,11 @@ const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const methodOverride = require('method-override');
+const SortMiddleware = require('./app/middlewares/SortMiddleware');
 const handlebars = require('express-handlebars').create(
   {
     extname : '.hbs',
-    helpers: {
-       sum: (a,b) => a + b,
-    }
+    helpers: require('./helpers/handlebars')
   }
 );
 const app = express();
@@ -29,6 +28,9 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 app.use(methodOverride('_method'));
+
+// custom middleware
+app.use(SortMiddleware);
 
 // HTTP logger
 app.use(morgan('combined'));

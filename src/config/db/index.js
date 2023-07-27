@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 async function connect() {
     try {
-        await mongoose.connect('mongodb://localhost:27017/HaiTet_Video_Dev', {
+        await mongoose.connect('mongodb://localhost:27017/Hai_Tet', {
             useNewUrlParser: true,
             useUnifiedTopology: true,
             // useCreateIndex: true,
         });
         console.log('Connect successfully!!!');
     } catch (error) {
-        console.log('Connect failure!!!');
+        console.log('Connect failure!!!'); 
     }
 }
 module.exports = {connect};

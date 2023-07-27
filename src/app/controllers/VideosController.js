@@ -18,15 +18,19 @@ class VideosController {
     res.render('videos/create');
   }
 
+  
+
   // [POST] /videos/store
   store(req, res, next) {
     req.body.image = `https://i.ytimg.com/vi/${req.body.videoId}/hqdefault.jpg`;
     const video = new Video(req.body);
-    video.save()
-      .then(() => res.redirect('/'))
+    video
+      .save()
+      .then(() => res.redirect('mevideos/stored/videos'))
       .catch(error => {
         res.status(500).send('Đã xảy ra lỗi khi lưu video.');
       })
+
   }
 
   //[GET] /videos/:id/edit
@@ -64,11 +68,6 @@ class VideosController {
     Video.restore({ _id: req.params.id })
       .then(() => res.redirect('back'))
       .catch(next);
-    // const videoId = req.params.id;
-    // Video.findByIdAndUpdate({ _id: videoId })
-    //   .then((video) => {
-    //     res.json(video);
-    //   })
   }
 
   //[POST /videos/handle-form-actions
